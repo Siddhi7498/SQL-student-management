@@ -1,0 +1,62 @@
+-- Create a table for students
+CREATE TABLE Students (
+    StudentID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Age INT,
+    Grade VARCHAR(10)
+);
+
+-- Create a table for courses
+CREATE TABLE Courses (
+    CourseID INT PRIMARY KEY,
+    CourseName VARCHAR(100)
+);
+
+-- Create a table for student enrollments
+CREATE TABLE Enrollments (
+    EnrollmentID INT PRIMARY KEY,
+    StudentID INT,
+    CourseID INT,
+    Grade VARCHAR(10),
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+
+-- Insert some sample data for students
+INSERT INTO Students (StudentID, Name, Age, Grade)
+VALUES (1, 'John Doe', 18, 'A'),
+       (2, 'Jane Smith', 17, 'B'),
+       (3, 'Alice Johnson', 19, 'A');
+
+-- Insert some sample data for courses
+INSERT INTO Courses (CourseID, CourseName)
+VALUES (1, 'Mathematics'),
+       (2, 'English'),
+       (3, 'Science');
+
+-- Enroll students in courses
+INSERT INTO Enrollments (EnrollmentID, StudentID, CourseID, Grade)
+VALUES (1, 1, 1, 'A'),
+       (2, 1, 2, 'B'),
+       (3, 2, 1, 'B'),
+       (4, 3, 3, 'A');
+
+-- Query all students
+SELECT * FROM Students;
+
+-- Query all courses
+SELECT * FROM Courses;
+
+-- Query all student enrollments
+SELECT * FROM Enrollments;
+
+-- Update student's grade for a specific course
+UPDATE Enrollments
+SET Grade = 'A'
+WHERE StudentID = 1
+AND CourseID = 1;
+
+-- Delete a student's enrollment record
+DELETE FROM Enrollments
+WHERE StudentID = 3
+AND CourseID = 3;
